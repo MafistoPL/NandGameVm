@@ -51,3 +51,11 @@ private:
 public:
 	uint16_t setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal);
 };
+
+class TwoByteRam
+{
+private:
+	Register ram[2];
+public:
+	uint16_t setNewStateAndGetResult(bool address, bool set, uint16_t input, bool clockSignal);
+};

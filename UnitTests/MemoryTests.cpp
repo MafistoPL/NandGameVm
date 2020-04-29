@@ -175,6 +175,27 @@ namespace MemoryTests
 
 	// ========================================================================
 
+	TEST(RamTest, TwoByteRamTest)
+	{
+		TwoByteRam ram;
+		EXPECT_EQ(ram.setNewStateAndGetResult(0, 0, 0, 0), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 1), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 1, 123, 1), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 1, 123, 0), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 1, 123, 1), 123);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 1, 123, 0), 123);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 123);
+		EXPECT_EQ(ram.setNewStateAndGetResult(0, 0, 123, 0), 0);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 123);
+		EXPECT_EQ(ram.setNewStateAndGetResult(0, 1, 321, 1), 321);
+		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 123);
+		EXPECT_EQ(ram.setNewStateAndGetResult(0, 0, 123, 0), 321);
+	}
+
+	// ========================================================================
+
 	TEST(CounterTest, CounterTest)
 	{
 		Counter counter;

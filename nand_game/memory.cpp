@@ -72,3 +72,14 @@ uint16_t Counter::setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal
 		reg.setNewStateAndGetResult(1, Bit16Selector(set, prevRegIncremented, x), clockSignal);
 	return prevRegOutput;
 }
+
+uint16_t TwoByteRam::setNewStateAndGetResult(bool address, bool set, uint16_t input, bool clockSignal)
+{
+	bool c0 = false, c1 = false;
+	Bit1Switch(address, set, &c0, &c1);
+	return Bit16Selector(
+		address,
+		ram[0].setNewStateAndGetResult(c0, input, clockSignal),
+		ram[1].setNewStateAndGetResult(c1, input, clockSignal)
+	);
+}
