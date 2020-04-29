@@ -173,6 +173,35 @@ namespace MemoryTests
 		}
 	};
 
+	// ========================================================================
+
+	TEST(CounterTest, CounterTest)
+	{
+		Counter counter;
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 1), 1);
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 0), 1);
+		
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 1), 2);
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 0), 2);
+		
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 1), 3);
+		EXPECT_EQ(counter.setNewStateAndGetResult(1, 0, 1), 3);
+		
+		EXPECT_EQ(counter.setNewStateAndGetResult(1, 0, 0), 3);
+		EXPECT_EQ(counter.setNewStateAndGetResult(1, 0, 1), 0);
+
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 1), 1);
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 0), 1);
+		
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 1), 2);
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 0), 2);
+
+		EXPECT_EQ(counter.setNewStateAndGetResult(1, 8, 0), 2);
+		EXPECT_EQ(counter.setNewStateAndGetResult(1, 8, 1), 8);
+	}
+
+	// ========================================================================
+
 	TEST(RegisterTest, TwoBitRegisterTest)
 	{
 		TestRegister reg;

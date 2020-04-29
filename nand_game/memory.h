@@ -10,7 +10,7 @@ private:
 	bool rightNandEarlierOutput = 1;
 
 public:
-	bool setNewStateAndGetResult(bool st, bool d);
+	bool setNewStateAndGetResult(bool set, bool data);
 };
 
 class DataFlipFlop
@@ -31,7 +31,7 @@ private:
 		1  // 9
 	};
 public:
-	bool setNewStateAndGetResult(bool st, bool d, bool cl);
+	bool setNewStateAndGetResult(bool set, bool data, bool clockSignal);
 };
 
 class Register
@@ -40,5 +40,13 @@ private:
 	static const size_t Bit_Count = 16;
 	DataFlipFlop dff[Bit_Count];
 public:
-	uint16_t setNewStateAndGetResult(bool st, uint16_t d, bool cl);
+	uint16_t setNewStateAndGetResult(bool set, uint16_t data, bool clockSignal);
+};
+
+class Counter
+{
+private:
+	Register reg;
+public:
+	uint16_t setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal);
 };

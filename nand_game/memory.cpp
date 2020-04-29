@@ -63,3 +63,8 @@ uint16_t Register::setNewStateAndGetResult(bool set, uint16_t data, bool clockSi
 
 	return result;
 }
+
+uint16_t Counter::setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal)
+{
+	return uint16_t();
+}
