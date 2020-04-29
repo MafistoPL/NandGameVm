@@ -58,7 +58,7 @@ uint16_t Register::setNewStateAndGetResult(bool set, uint16_t data, bool clockSi
 
 	for (size_t i = 0; i < Register::Bit_Count; i++)
 	{
-		result = dff[i].setNewStateAndGetResult(set, splittedData.bit[i], clockSignal);
+		result |= dff[i].setNewStateAndGetResult(set, splittedData.bit[i], clockSignal) << i;
 	}
 
 	return result;
