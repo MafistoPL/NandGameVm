@@ -18,18 +18,30 @@ int16_t Bit16Join(Bit16Splitted input)
 	int16_t result = 0;
 	for (size_t i = 0; i < 16; i++)
 	{
-		result |= input.bit[i];
+		result |= input.bit[i] << i;
 	}
 	return result;
 }
 
-bool Bit1Selector(bool inputA, bool inputB, bool inputSwitch)
+bool Bit1Selector(bool inputSwitch, bool data0, bool data1)
 {
-	return Or(And(Not(inputSwitch), inputA), And(inputSwitch, inputB));
+	return Or(And(Not(inputSwitch), data0), And(inputSwitch, data1));
 }
 
-void Bit1Switch(bool s, bool d, bool* c0, bool* c1)
+void Bit1Switch(bool canalSwitch, bool data, bool* canal0, bool* canal1)
 {
-	*c0 = And(Not(s), d);
-	*c1 = And(s, d);
+	*canal0 = And(Not(canalSwitch), data);
+	*canal1 = And(canalSwitch, data);
+}
+
+int16_t Bit16Selector(bool dataSwitch, uint16_t data0, uint16_t data1)
+{
+	Bit16Splitted splittedData0 = Bit16Split(data0);
+	Bit16Splitted splittedData1 = Bit16Split(data1);
+	Bit16Splitted result;
+	for (size_t i = 0; i < 16; i++)
+	{
+		result.bit[i] = Bit1Selector(dataSwitch, splittedData0.bit[i], splittedData1.bit[i]);
+	}
+	return Bit16Join(result);
 }
