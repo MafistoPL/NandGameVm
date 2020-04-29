@@ -181,6 +181,24 @@ namespace MemoryTests
 		EXPECT_EQ(reg.setNewStateAndGetResult(1, 0, 0, 1), 3);
 	}
 
+	TEST(RegisterTest, Bit16RegisterTest)
+	{
+		Register reg;
+		uint16_t data = 12345;
+		EXPECT_EQ(reg.setNewStateAndGetResult(0, data, 0), 0);
+		EXPECT_EQ(reg.setNewStateAndGetResult(0, data, 1), 0);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, data, 1), 0);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, data, 0), 0);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, data, 1), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, data, 0), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(0, data, 0), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(0, 0, 0), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(0, 0, 1), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, 0, 1), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, 0, 0), data);
+		EXPECT_EQ(reg.setNewStateAndGetResult(1, 0, 1), 0);
+	}
+
 	/*
 		Test naming convention is folowing:
 
