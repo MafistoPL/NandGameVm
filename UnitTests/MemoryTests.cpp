@@ -189,6 +189,7 @@ namespace MemoryTests
 		
 		EXPECT_EQ(counter.setNewStateAndGetResult(1, 0, 0), 3);
 		EXPECT_EQ(counter.setNewStateAndGetResult(1, 0, 1), 0);
+		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 0), 0);
 
 		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 1), 1);
 		EXPECT_EQ(counter.setNewStateAndGetResult(0, 0, 0), 1);

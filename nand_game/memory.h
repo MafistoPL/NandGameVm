@@ -47,6 +47,7 @@ class Counter
 {
 private:
 	Register reg;
+	uint16_t prevRegOutput = 0;
 public:
 	uint16_t setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal);
 };

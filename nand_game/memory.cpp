@@ -1,4 +1,5 @@
 #include "memory.h"
+#include "arthmetics.h"
 #include "utils.h"
 
 bool Latch::setNewStateAndGetResult(bool st, bool d)
@@ -66,5 +67,8 @@ uint16_t Register::setNewStateAndGetResult(bool set, uint16_t data, bool clockSi
 
 uint16_t Counter::setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal)
 {
-	return uint16_t();
+	uint16_t prevRegIncremented = Bit16Increment(prevRegOutput, nullptr);
+	prevRegOutput =
+		reg.setNewStateAndGetResult(1, Bit16Selector(set, prevRegIncremented, x), clockSignal);
+	return prevRegOutput;
 }
