@@ -43,6 +43,76 @@ namespace PlumbingTests
         EXPECT_EQ(output[1], 1);
     }
 
+    TEST(PlumbingTest, Bit1Switch4WayTest)
+    {
+        std::vector<bool> output(4);
+        std::vector<bool> canalSwitch = { 0, 0 };
+
+        canalSwitch[0] = 0;
+        canalSwitch[1] = 0;
+        Bit1Switch4Way(canalSwitch, 0, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 1;
+        canalSwitch[1] = 0;
+        Bit1Switch4Way(canalSwitch, 0, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 0;
+        canalSwitch[1] = 1;
+        Bit1Switch4Way(canalSwitch, 0, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 1;
+        canalSwitch[1] = 1;
+        Bit1Switch4Way(canalSwitch, 0, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 0;
+        canalSwitch[1] = 0;
+        Bit1Switch4Way(canalSwitch, 1, output);
+        EXPECT_EQ(output[0], 1);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 1;
+        canalSwitch[1] = 0;
+        Bit1Switch4Way(canalSwitch, 1, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 1);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 0;
+        canalSwitch[1] = 1;
+        Bit1Switch4Way(canalSwitch, 1, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 1);
+        EXPECT_EQ(output[3], 0);
+
+        canalSwitch[0] = 1;
+        canalSwitch[1] = 1;
+        Bit1Switch4Way(canalSwitch, 1, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
+        EXPECT_EQ(output[2], 0);
+        EXPECT_EQ(output[3], 1);
+    }
+
     TEST(PlumbingTest, Bit16SwitchTest)
     {
         uint16_t data0 = 0x3537;

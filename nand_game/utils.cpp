@@ -38,6 +38,26 @@ void Bit1Switch(bool canalSwitch, bool data, std::vector<bool>& outputCanals)
 	outputCanals[1] = And(canalSwitch, data);
 }
 
+void Bit1Switch4Way(std::vector<bool> canalSwitch, bool data, std::vector<bool>& outputCanals)
+{
+	if (canalSwitch.size() != 2)
+	{
+		throw "In funciton Bit1Switch4Way size of canalSwitch must be 2";
+	}
+	if (outputCanals.size() != 4)
+	{
+		throw "In function Bit1Switch4Way size of outputCanals must be 4.";
+	}
+
+	// my way
+	bool ns0 = Not(canalSwitch[0]);
+	bool ns1 = Not(canalSwitch[1]);
+	outputCanals[0] = And(And(ns0, ns1), data);
+	outputCanals[1] = And(And(canalSwitch[0], ns1), data);
+	outputCanals[2] = And(And(ns0, canalSwitch[1]), data);
+	outputCanals[3] = And(And(canalSwitch[0], canalSwitch[1]), data);
+}
+
 int16_t Bit16Selector(bool dataSwitch, uint16_t data0, uint16_t data1)
 {
 	Bit16Splitted splittedData0 = Bit16Split(data0);
