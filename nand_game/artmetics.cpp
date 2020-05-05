@@ -20,7 +20,7 @@ OneBitAdderResult FullAdder(bool inputA, bool inputB, bool caryyIn)
 			And(xorResult, caryyIn),
 			And(inputA, inputB)
 		)
-		);
+	);
 	return result;
 }
 
