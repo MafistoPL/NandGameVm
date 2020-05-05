@@ -45,7 +45,7 @@ namespace PlumbingTests
 
     TEST(PlumbingTest, Bit1Switch4WayTest)
     {
-        std::vector<bool> output(4);
+        std::vector<bool> output;
         std::vector<bool> canalSwitch = { 0, 0 };
 
         canalSwitch[0] = 0;

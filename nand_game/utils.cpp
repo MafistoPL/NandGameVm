@@ -44,18 +44,17 @@ void Bit1Switch4Way(std::vector<bool> canalSwitch, bool data, std::vector<bool>&
 	{
 		throw "In funciton Bit1Switch4Way size of canalSwitch must be 2";
 	}
-	if (outputCanals.size() != 4)
-	{
-		throw "In function Bit1Switch4Way size of outputCanals must be 4.";
-	}
+	outputCanals.clear();
 
-	// my way
-	bool ns0 = Not(canalSwitch[0]);
-	bool ns1 = Not(canalSwitch[1]);
-	outputCanals[0] = And(And(ns0, ns1), data);
-	outputCanals[1] = And(And(canalSwitch[0], ns1), data);
-	outputCanals[2] = And(And(ns0, canalSwitch[1]), data);
-	outputCanals[3] = And(And(canalSwitch[0], canalSwitch[1]), data);
+	std::vector<bool> intermediateOutputCanals(2);
+	std::vector<bool> sliceOfOutput(2);
+	Bit1Switch(canalSwitch[1], data, intermediateOutputCanals);
+
+	Bit1Switch(canalSwitch[0], intermediateOutputCanals[0], sliceOfOutput);
+	outputCanals.insert(outputCanals.end(), sliceOfOutput.begin(), sliceOfOutput.end());
+
+	Bit1Switch(canalSwitch[0], intermediateOutputCanals[1], sliceOfOutput);
+	outputCanals.insert(outputCanals.end(), sliceOfOutput.begin(), sliceOfOutput.end());
 }
 
 int16_t Bit16Selector(bool dataSwitch, uint16_t data0, uint16_t data1)
