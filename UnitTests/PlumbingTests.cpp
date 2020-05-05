@@ -24,23 +24,23 @@ namespace PlumbingTests
 
     TEST(PlumbingTest, Bit1SwitchTest)
     {
-        bool c0, c1;
+        std::vector<bool> output(2);
         
-        Bit1Switch(0, 0, &c0, &c1);
-        EXPECT_EQ(c0, 0);
-        EXPECT_EQ(c1, 0);
+        Bit1Switch(0, 0, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
 
-        Bit1Switch(0, 1, &c0, &c1);
-        EXPECT_EQ(c0, 1);
-        EXPECT_EQ(c1, 0);
+        Bit1Switch(0, 1, output);
+        EXPECT_EQ(output[0], 1);
+        EXPECT_EQ(output[1], 0);
 
-        Bit1Switch(1, 0, &c0, &c1);
-        EXPECT_EQ(c0, 0);
-        EXPECT_EQ(c1, 0);
+        Bit1Switch(1, 0, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 0);
 
-        Bit1Switch(1, 1, &c0, &c1);
-        EXPECT_EQ(c0, 0);
-        EXPECT_EQ(c1, 1);
+        Bit1Switch(1, 1, output);
+        EXPECT_EQ(output[0], 0);
+        EXPECT_EQ(output[1], 1);
     }
 
     TEST(PlumbingTest, Bit16SwitchTest)

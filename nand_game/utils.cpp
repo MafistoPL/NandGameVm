@@ -28,10 +28,14 @@ bool Bit1Selector(bool inputSwitch, bool data0, bool data1)
 	return Or(And(Not(inputSwitch), data0), And(inputSwitch, data1));
 }
 
-void Bit1Switch(bool canalSwitch, bool data, bool* canal0, bool* canal1)
+void Bit1Switch(bool canalSwitch, bool data, std::vector<bool>& outputCanals)
 {
-	*canal0 = And(Not(canalSwitch), data);
-	*canal1 = And(canalSwitch, data);
+	if (outputCanals.size() != 2)
+	{
+		throw "In function Bit1Switch size of outputCanals must be 2.";
+	}
+	outputCanals[0] = And(Not(canalSwitch), data);
+	outputCanals[1] = And(canalSwitch, data);
 }
 
 int16_t Bit16Selector(bool dataSwitch, uint16_t data0, uint16_t data1)
