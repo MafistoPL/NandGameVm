@@ -73,7 +73,7 @@ uint16_t Counter::setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal
 	return prevRegOutput;
 }
 
-uint16_t TwoByteRam::setNewStateAndGetResult(bool address, bool set, uint16_t input, bool clockSignal)
+uint16_t Ram2Reg::setNewStateAndGetResult(bool address, bool set, uint16_t input, bool clockSignal)
 {
 	std::vector<bool> outputCanals(2);
 	Bit1Switch(address, set, outputCanals);
@@ -84,7 +84,7 @@ uint16_t TwoByteRam::setNewStateAndGetResult(bool address, bool set, uint16_t in
 	);
 }
 
-uint16_t EightWordRam::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
+uint16_t Ram8Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
 {
 	std::vector<bool> enable(8);
 	std::vector<uint16_t> data;
