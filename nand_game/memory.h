@@ -1,6 +1,7 @@
 #pragma once
 #include <cinttypes>
 #include <string.h>
+#include <vector>
 #include "gates.h"
 
 class Latch
@@ -66,4 +67,20 @@ private:
 	Register ram[8];
 public:
 	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignel);
+};
+
+class Ram64Reg
+{
+private:
+	Ram8Reg ram[8];
+public:
+	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignel);
+};
+
+class Ram512Reg
+{
+private:
+	Ram64Reg ram[8];
+public:
+	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal);
 };

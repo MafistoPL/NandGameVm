@@ -86,6 +86,11 @@ uint16_t Ram2Reg::setNewStateAndGetResult(bool address, bool set, uint16_t input
 
 uint16_t Ram8Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
 {
+	if (address.size() != 3)
+	{
+		throw "Ram8Reg: address bus must have a width of 3 bits.";
+	}
+
 	std::vector<bool> enable(8);
 	std::vector<uint16_t> data;
 	Bit1Switch8Way(address, set, enable);
@@ -97,3 +102,42 @@ uint16_t Ram8Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, u
 	return Bit16Selector8Way(address, data);
 }
 
+uint16_t Ram64Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
+{
+	if (address.size() != 6)
+	{
+		throw "Ram64Reg: address bus must have a width of 6 bits.";
+	}
+	std::vector<bool> ram8RegAddr(address.begin(), address.begin() + 3);
+	std::vector<bool> rem8RegInnerAddr(address.begin() + 3, address.end());
+
+	std::vector<bool> enable(8);
+	std::vector<uint16_t> data;
+	Bit1Switch8Way(ram8RegAddr, set, enable);
+	for (size_t i = 0; i < 8; i++)
+	{
+		data.push_back(ram[i].setNewStateAndGetResult(rem8RegInnerAddr, enable[i], input, clockSignal));
+	}
+
+	return Bit16Selector8Way(ram8RegAddr, data);
+}
+
+uint16_t Ram512Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
+{
+	if (address.size() != 9)
+	{
+		throw "Ram512Reg: address bus must have a width of 9 bits.";
+	}
+	std::vector<bool> ram64RegAddr(address.begin(), address.begin() + 3);
+	std::vector<bool> ram64RegInnerAddr(address.begin() + 3, address.end());
+
+	std::vector<bool> enable(8);
+	std::vector<uint16_t> data;
+	Bit1Switch8Way(ram64RegAddr, set, enable);
+	for (size_t i = 0; i < 8; i++)
+	{
+		data.push_back(ram[i].setNewStateAndGetResult(ram64RegInnerAddr, enable[i], input, clockSignal));
+	}
+
+	return Bit16Selector8Way(ram64RegAddr, data);
+}
