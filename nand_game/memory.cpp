@@ -84,3 +84,16 @@ uint16_t TwoByteRam::setNewStateAndGetResult(bool address, bool set, uint16_t in
 	);
 }
 
+uint16_t EightWordRam::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
+{
+	std::vector<bool> enable(8);
+	std::vector<uint16_t> data;
+	Bit1Switch8Way(address, set, enable);
+	for (size_t i = 0; i < 8; i++)
+	{
+		data.push_back(ram[i].setNewStateAndGetResult(enable[i], input, clockSignal));
+	}
+
+	return Bit16Selector8Way(address, data);
+}
+

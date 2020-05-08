@@ -52,10 +52,18 @@ public:
 	uint16_t setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal);
 };
 
-class TwoByteRam
+class Ram2Reg
 {
 private:
 	Register ram[2];
 public:
 	uint16_t setNewStateAndGetResult(bool address, bool set, uint16_t input, bool clockSignal);
+};
+
+class Ram8Reg
+{
+private:
+	Register ram[8];
+public:
+	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignel);
 };

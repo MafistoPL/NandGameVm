@@ -175,9 +175,9 @@ namespace MemoryTests
 
 	// ========================================================================
 
-	TEST(RamTest, TwoByteRamTest)
+	TEST(RamTest, Ram2RegTest)
 	{
-		TwoByteRam ram;
+		Ram2Reg ram;
 		EXPECT_EQ(ram.setNewStateAndGetResult(0, 0, 0, 0), 0);
 		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 0);
 		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 0);
@@ -192,6 +192,17 @@ namespace MemoryTests
 		EXPECT_EQ(ram.setNewStateAndGetResult(0, 1, 321, 1), 321);
 		EXPECT_EQ(ram.setNewStateAndGetResult(1, 0, 123, 0), 123);
 		EXPECT_EQ(ram.setNewStateAndGetResult(0, 0, 123, 0), 321);
+	}
+
+	TEST(RamTest, Ram8RegTest)
+	{
+		Ram8Reg ram;
+		EXPECT_EQ(ram.setNewStateAndGetResult({ 0, 0, 0 }, 1, 0x1234, 1), 0x1234);
+		EXPECT_EQ(ram.setNewStateAndGetResult({ 0, 0, 0 }, 1, 0x1234, 0), 0x1234);
+		EXPECT_EQ(ram.setNewStateAndGetResult({ 0, 0, 1 }, 1, 0x2345, 1), 0x2345);
+		EXPECT_EQ(ram.setNewStateAndGetResult({ 0, 0, 0 }, 1, 0xAAAA, 0), 0x1234);
+		EXPECT_EQ(ram.setNewStateAndGetResult({ 0, 0, 0 }, 0, 0xAAAA, 0), 0x1234);
+		EXPECT_EQ(ram.setNewStateAndGetResult({ 0, 0, 1 }, 0, 0xBBBB, 0), 0x2345);
 	}
 
 	// ========================================================================
