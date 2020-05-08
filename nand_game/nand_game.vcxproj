@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="alu.cpp" />
     <ClCompile Include="artmetics.cpp" />
     <ClCompile Include="gates.cpp" />
     <ClCompile Include="main.cpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alu.h" />
     <ClInclude Include="arthmetics.h" />
     <ClInclude Include="gates.h" />
     <ClInclude Include="memory.h" />
