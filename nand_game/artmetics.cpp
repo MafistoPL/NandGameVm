@@ -1,6 +1,4 @@
 #include "arthmetics.h"
-#include "gates.h"
-#include "utils.h"
 
 OneBitAdderResult HalfAdder(bool inputA, bool inputB)
 {

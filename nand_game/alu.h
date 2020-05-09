@@ -13,3 +13,5 @@ class ALU
 public:
 	static uint16_t Compute(std::vector<bool> flags, uint16_t x, uint16_t y);
 };
+
+bool Condition(std::vector<bool> inputFlags, uint16_t x);

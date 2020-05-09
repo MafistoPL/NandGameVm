@@ -23,4 +23,24 @@ uint16_t ALU::Compute(std::vector<bool> flags, uint16_t x, uint16_t y)
 	return Bit16Selector(flags[0], function, ~function);
 }
 
-
+bool Condition(std::vector<bool> inputFlags, uint16_t x)
+{
+	bool isNeg = Bit16LessThanZero(x);
+	bool isZero = Bit16EqualToZero(x);
+	return Or(
+		Or(
+			And(
+				inputFlags[0],
+				isNeg
+			),
+			And(
+				inputFlags[1],
+				isZero
+			)
+		),
+		And(
+			inputFlags[2],
+			Not(Or(isNeg, isZero))
+		)
+	);
+}

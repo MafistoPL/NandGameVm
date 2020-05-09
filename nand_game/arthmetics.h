@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include "gates.h"
+#include "utils.h"
 
 struct OneBitAdderResult
 {
