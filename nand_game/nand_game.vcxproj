@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="alu.cpp" />
     <ClCompile Include="artmetics.cpp" />
+    <ClCompile Include="cpu.cpp" />
     <ClCompile Include="gates.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
@@ -133,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="alu.h" />
     <ClInclude Include="arthmetics.h" />
+    <ClInclude Include="cpu.h" />
     <ClInclude Include="gates.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="utils.h" />
