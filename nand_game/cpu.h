@@ -57,3 +57,13 @@ public:
 private:
 	CombinedMemory::Value prevMemValue;
 };
+
+class ProgramEngine
+{
+private:
+	Ram512Reg rom;
+	Counter counter;
+public:
+	ProgramEngine(std::vector<uint16_t> program);
+	uint16_t getNextInstruction(bool jump, uint16_t address, bool clockSignal);
+};

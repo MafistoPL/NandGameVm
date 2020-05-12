@@ -141,3 +141,15 @@ uint16_t Ram512Reg::setNewStateAndGetResult(std::vector<bool> address, bool set,
 
 	return Bit16Selector8Way(ram64RegAddr, data);
 }
+
+uint16_t Ram512Reg::setNewStateAndGetResult(uint16_t address, bool set, uint16_t input, bool clockSignal)
+{
+	Bit16Splitted addressSplited = Bit16Split(address);
+	std::vector<bool> addressBoolVector;
+	for (size_t i = 0; i < 16; i++)
+	{
+		addressBoolVector.push_back(addressSplited.bit[i]);
+	}
+
+	return setNewStateAndGetResult(addressBoolVector, set, input, clockSignal);
+}

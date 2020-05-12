@@ -83,4 +83,5 @@ private:
 	Ram64Reg ram[8];
 public:
 	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal);
+	uint16_t setNewStateAndGetResult(uint16_t address, bool set, uint16_t input, bool clockSignal);
 };

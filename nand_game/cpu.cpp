@@ -5,13 +5,7 @@ CombinedMemory::Value CombinedMemory::setNewStateAndGetResult(bool a, bool d, bo
 	Value retVal;
 	retVal.regA = regA.setNewStateAndGetResult(a, data, clockSignal);
 	retVal.regD = regD.setNewStateAndGetResult(d, data, clockSignal);
-	std::vector<bool> address;
-	Bit16Splitted splittedValOfRegA = Bit16Split(retVal.regA);
-	for (size_t i = 0; i < 16; i++)
-	{
-		address.push_back(splittedValOfRegA.bit[i]);
-	}
-	retVal.aStar = ram.setNewStateAndGetResult(address, starA, data, clockSignal);
+	retVal.aStar = ram.setNewStateAndGetResult(retVal.regA, starA, data, clockSignal);
 
 	return retVal;
 }
@@ -54,4 +48,19 @@ ControlUnit::Result ControlUnit::setNewStateAndGetResult(uint16_t input, bool cl
 	result.regAValue = prevMemValue.regA;
 	
 	return result;
+}
+
+ProgramEngine::ProgramEngine(std::vector<uint16_t> program)
+{
+	for (uint16_t i = 0; i < program.size(); ++i)
+	{
+		rom.setNewStateAndGetResult(i, 1, program[i], 0);
+		rom.setNewStateAndGetResult(i, 1, program[i], 1);
+	}
+}
+
+uint16_t ProgramEngine::getNextInstruction(bool jump, uint16_t address, bool clockSignal)
+{
+	uint16_t romAddress = counter.setNewStateAndGetResult(jump, address, clockSignal);
+	return rom.setNewStateAndGetResult(romAddress, 0, 0, 0);
 }
