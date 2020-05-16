@@ -67,3 +67,14 @@ public:
 	ProgramEngine(std::vector<uint16_t> program);
 	uint16_t getNextInstruction(bool jump, uint16_t address, bool clockSignal);
 };
+
+class Computer
+{
+private:
+	ProgramEngine programEngine;
+	ControlUnit controlUnit;
+	ControlUnit::Result prevControlUnitResult;
+public:
+	Computer(std::vector<uint16_t> program);
+	void clockPulse();
+};

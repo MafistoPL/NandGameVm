@@ -4,6 +4,8 @@
 #include <vector>
 #include "gates.h"
 
+#define DEBUG_MODE
+
 class Latch
 {
 private:
@@ -35,6 +37,7 @@ public:
 	bool setNewStateAndGetResult(bool set, bool data, bool clockSignal);
 };
 
+#ifndef DEBUG_MODE
 class Register
 {
 private:
@@ -43,6 +46,16 @@ private:
 public:
 	uint16_t setNewStateAndGetResult(bool set, uint16_t data, bool clockSignal);
 };
+#else
+class Register
+{
+private:
+	uint16_t regValue = 0;
+	bool prevClockSignal = false;
+public:
+	uint16_t setNewStateAndGetResult(bool set, uint16_t data, bool clockSignal);
+};
+#endif
 
 class Counter
 {
@@ -77,6 +90,7 @@ public:
 	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignel);
 };
 
+#ifndef DEBUG_MODE
 class Ram512Reg
 {
 private:
@@ -85,3 +99,14 @@ public:
 	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal);
 	uint16_t setNewStateAndGetResult(uint16_t address, bool set, uint16_t input, bool clockSignal);
 };
+#else
+class Ram512Reg
+{
+private:
+	uint16_t ram[512] = { 0 };
+	bool prevClockSignal = false;
+public:
+	uint16_t setNewStateAndGetResult(uint16_t address, bool set, uint16_t input, bool clockSignal);
+	uint16_t setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal);
+};
+#endif

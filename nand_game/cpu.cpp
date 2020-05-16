@@ -64,3 +64,16 @@ uint16_t ProgramEngine::getNextInstruction(bool jump, uint16_t address, bool clo
 	uint16_t romAddress = counter.setNewStateAndGetResult(jump, address, clockSignal);
 	return rom.setNewStateAndGetResult(romAddress, 0, 0, 0);
 }
+
+Computer::Computer(std::vector<uint16_t> program) : programEngine(program)
+{
+	prevControlUnitResult = { 0, 0 };
+}
+
+void Computer::clockPulse()
+{
+	uint16_t instruction = programEngine.getNextInstruction(prevControlUnitResult.j, prevControlUnitResult.regAValue, 0);
+	prevControlUnitResult = controlUnit.setNewStateAndGetResult(instruction, 0);
+	instruction = programEngine.getNextInstruction(prevControlUnitResult.j, prevControlUnitResult.regAValue, 1);
+	prevControlUnitResult = controlUnit.setNewStateAndGetResult(instruction, 1);
+}

@@ -52,6 +52,7 @@ bool DataFlipFlop::setNewStateAndGetResult(bool st, bool d, bool cl)
 	return currOutputOfGates[0];
 }
 
+#ifndef DEBUG_MODE
 uint16_t Register::setNewStateAndGetResult(bool set, uint16_t data, bool clockSignal)
 {
 	uint16_t result = 0;
@@ -64,6 +65,18 @@ uint16_t Register::setNewStateAndGetResult(bool set, uint16_t data, bool clockSi
 
 	return result;
 }
+#else
+uint16_t Register::setNewStateAndGetResult(bool set, uint16_t data, bool clockSignal)
+{
+	if (!prevClockSignal && clockSignal && set)
+	{
+		regValue = data;
+	}
+	prevClockSignal = clockSignal;
+
+	return regValue;
+}
+#endif // !debugmode
 
 uint16_t Counter::setNewStateAndGetResult(bool set, uint16_t x, bool clockSignal)
 {
@@ -122,6 +135,7 @@ uint16_t Ram64Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, 
 	return Bit16Selector8Way(ram8RegAddr, data);
 }
 
+#ifndef DEBUG_MODE
 uint16_t Ram512Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
 {
 	if (address.size() < 9)
@@ -153,3 +167,31 @@ uint16_t Ram512Reg::setNewStateAndGetResult(uint16_t address, bool set, uint16_t
 
 	return setNewStateAndGetResult(addressBoolVector, set, input, clockSignal);
 }
+#else
+uint16_t Ram512Reg::setNewStateAndGetResult(std::vector<bool> address, bool set, uint16_t input, bool clockSignal)
+{
+	uint16_t uintAddress = 0;
+	for (size_t i = 0; i < 16; i++)
+	{
+		if (i < address.size())
+		{
+			uintAddress |= address[i] << i;
+		}
+		else 
+		{
+			break;
+		}
+	}
+	return setNewStateAndGetResult(uintAddress, set, input, clockSignal);
+}
+
+uint16_t Ram512Reg::setNewStateAndGetResult(uint16_t address, bool set, uint16_t input, bool clockSignal)
+{
+	if (clockSignal && !prevClockSignal && set)
+	{
+		ram[address] = input;
+	}
+	prevClockSignal = clockSignal;
+	return ram[address];
+}
+#endif
